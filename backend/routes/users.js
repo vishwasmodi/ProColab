@@ -11,6 +11,7 @@ router.get("/me", auth, async (req, res) => {
   res.send(user);
 });
 
+// For Signup
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
 

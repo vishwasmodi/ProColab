@@ -5,6 +5,12 @@ const Joi = require("joi");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const friend = require("./routes/friend");
+const projects = require("./routes/projects");
+const colaboratorsReq = require("./routes/colaboratorsReq");
+const colaborator = require("./routes/colaborators");
+const { Colaborator } = require("./models/colaborator");
+const { ColaboratorReq } = require("./models/colaboratorReq");
+
 const app = express();
 require("dotenv").config();
 
@@ -25,7 +31,8 @@ app.use(express.json());
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 app.use("/api/friend", friend);
-
+app.use("/api/projects", projects);
+app.use("/api/colaboratorsReq", colaboratorsReq);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log("listening to port 5000"));
