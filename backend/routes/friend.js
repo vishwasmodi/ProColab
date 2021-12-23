@@ -68,9 +68,11 @@ router.post('/requests/:requestId', async (req, res) => {
             ]
         });
         friendRequest.update({ status: 'accepted' });
+        res.send("Request accepted successfully!");
     }
     else {
         friendRequest.update({ status: 'ignored' });
+        res.send("Request ignored successfully!");
     }
 
 });
