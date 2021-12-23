@@ -4,6 +4,7 @@ const Joi = require("joi");
 // Joi.objectId = require("joi-objectid")(Joi);
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const friend = require("./routes/friend");
 const app = express();
 require("dotenv").config();
 
@@ -23,6 +24,7 @@ mongoose
 app.use(express.json());
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use("/api/friend", friend);
 
 const port = process.env.PORT || 5000;
 
