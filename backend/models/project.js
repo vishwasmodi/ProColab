@@ -20,9 +20,10 @@ const projectSchema = new mongoose.Schema({
   techStack: {
     type: Array,
   },
-  colaborators: {
-    type: Array,
-  },
+  colaborators: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   votes: {
     type: Number,
     default: 0,

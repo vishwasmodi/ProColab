@@ -29,27 +29,17 @@ router.post("/:id", auth, async (req, res) => {
   if (req.user._id !== req.body.receiverId) res.send("Wrong request id");
   const request = await ColaboratorReq.findById(req.params.id).exec();
   if (req.body.status) {
-    console.log(request.projectId.toString());
-    console.log(request.senderId.toString());
-    Project.findByIdAndUpdate(request.projectId.toString(), {
+    // console.log(request.projectId.toString());
+    // console.log(request.senderId.toString());
+    await Project.findByIdAndUpdate(request.projectId.toString(), {
       $push: {
-        colaborators: request.senderId.toString(),
+        colaborators: request.senderId,
       },
       function(err) {
         if (err) return next(err);
       },
-    });
-    Project.findByIdAndUpdate(
-      request.projectId.toString(),
-      {
-        $inc: { votes: 1 },
-      },
-      function (err) {
-        if (err) return next(err);
-      }
-    );
+    }).exec();
   }
-  // await ColaboratorReq.findByIdAndRemove(req.params.id);
   res.send("Hello");
 });
 
