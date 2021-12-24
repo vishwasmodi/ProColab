@@ -27,6 +27,14 @@ router.post('/requests/new', isAuthenticated, async (req, res) => {
         requestee: req.body._id
     };
 
+    if (await Friendship.findOne({
+        friends: [participants.requestee,
+        participants.requester].sort()
+    }).exec()) {
+        res.status(400).send("Already a friend!");
+        return;
+    }
+
     if (await FriendRequest.findOne(participants).exec()) {
         res.status(400).send("Request already sent");
         return;
@@ -47,17 +55,22 @@ router.post('/requests/new', isAuthenticated, async (req, res) => {
 
 router.post('/requests/:requestId', async (req, res) => {
     const { action } = req.query;
-    console.log(action)
 
-    if (action !== 'accept' && action !== 'ignore')
+    if (action !== 'accept' && action !== 'ignore') {
         res.status(400).send("Invalid action request!");
+        return;
+    }
 
+    const query = FriendRequest.findById(req.params.requestId);
     let friendRequest;
 
     try {
-        friendRequest = await FriendRequest.findById(req.params.requestId).exec();
+        friendRequest = await query.exec();
+        await FriendRequest.findByIdAndDelete(friendRequest._id);
     } catch (error) {
+        console.log(error);
         res.status(400).send("Request not found!");
+        return;
     }
 
     if (action === 'accept') {
@@ -65,16 +78,13 @@ router.post('/requests/:requestId', async (req, res) => {
             friends: [
                 friendRequest.requestee,
                 friendRequest.requester
-            ]
+            ].sort()
         });
-        friendRequest.update({ status: 'accepted' });
         res.send("Request accepted successfully!");
     }
     else {
-        friendRequest.update({ status: 'ignored' });
         res.send("Request ignored successfully!");
     }
-
 });
 
 module.exports = router
