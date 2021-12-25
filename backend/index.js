@@ -12,6 +12,8 @@ const { Colaborator } = require("./models/colaborator");
 const { ColaboratorReq } = require("./models/colaboratorReq");
 
 const app = express();
+const cors = require("cors");
+
 require("dotenv").config();
 
 const { APP_USER, APP_USER_PASSWORD } = process.env;
@@ -28,6 +30,7 @@ mongoose
   .catch((err) => console.log(err.message));
 
 app.use(express.json());
+app.use(cors());
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 app.use("/api/friend", friend);

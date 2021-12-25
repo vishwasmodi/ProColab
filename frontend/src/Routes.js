@@ -7,6 +7,8 @@ import {
 
 // import all the pages here
 import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/Register";
 
 const Routes = () => {
   return (
@@ -14,6 +16,8 @@ const Routes = () => {
       <Switch>
         {/* <Route exact path='/route' component={Page} /> for all the pages */}
         <Route exact path="" element={<Home />} />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/register" element={<RegisterPage />} />
       </Switch>
     </Router>
   );
