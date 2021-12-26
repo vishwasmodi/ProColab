@@ -11,13 +11,16 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
+  const userName = await User.findById(req.user._id).exec();
+  const techStack = req.body.techStack.split(" ");
   let project = new Project({
     name: req.body.name,
     description: req.body.description,
     user: req.user._id,
+    userName: userName.name,
     githubRepo: req.body.githubRepo,
     votes: req.body.votes,
-    techStack: req.body.techStack,
+    techStack: techStack,
     colaborators: req.body.colaborators,
     colaboratorsLimit: req.body.colaboratorsLimit,
   });
@@ -26,7 +29,6 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.post("/collaborate/:id", auth, async (req, res) => {
-  console.log(req.user);
   const user = await User.findById(req.user._id);
   if (!user) res.send("Wrong user");
   const project = await Project.findById(req.params.id);
