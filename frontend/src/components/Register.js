@@ -2,14 +2,7 @@ import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/auth";
 
-const required = (value) => {
-  if (!value) {
-    return <div>This field is required!</div>;
-  }
-};
 const Register = (props) => {
-  const form = useRef();
-  const checkBtn = useRef();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -58,7 +51,6 @@ const Register = (props) => {
         <form
           class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleRegister}
-          ref={form}
         >
           <div class="mb-4">
             <label
@@ -136,7 +128,6 @@ const Register = (props) => {
             <button
               class="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               disabled={loading}
-              ref={checkBtn}
             >
               <span>Register</span>
               {loading === true ? (

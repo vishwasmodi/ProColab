@@ -1,21 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Form, { form } from "react-validation/build/form";
-import Input from "react-validation";
-import CheckButton from "react-validation/build/button";
-
 import { login } from "../actions/auth";
 
-const required = (value) => {
-  if (!value) {
-    return <div>This field is required!</div>;
-  }
-};
-
 const Login = (props) => {
-  const form = useRef();
-  const checkBtn = useRef();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,7 +39,6 @@ const Login = (props) => {
         <form
           class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleLogin}
-          ref={form}
         >
           <div class="mb-4">
             <label
@@ -99,7 +85,6 @@ const Login = (props) => {
             <button
               class="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               disabled={loading}
-              ref={checkBtn}
             >
               <span>Login</span>
               {loading === true ? (

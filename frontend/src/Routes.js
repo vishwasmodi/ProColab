@@ -8,7 +8,8 @@ import {
 // import all the pages here
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/Register";
+import RegisterPage from "./pages/RegisterPage";
+import AddProjectPage from "./pages/AddProjectPage";
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
         <Route exact path="" element={<Home />} />
         <Route exact path="/login" element={<LoginPage />} />
         <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/addproject" element={<AddProjectPage />} />
       </Switch>
     </Router>
   );

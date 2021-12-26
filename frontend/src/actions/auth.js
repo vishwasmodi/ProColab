@@ -1,6 +1,6 @@
 import * as actions from "./types";
 
-import AuthService from "../services.js/auth.service";
+import AuthService from "../services/auth.service";
 
 export const register = (name, username, email, password) => (dispatch) => {
   return AuthService.register(name, username, email, password).then(
