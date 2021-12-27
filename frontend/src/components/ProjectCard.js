@@ -13,7 +13,7 @@ const ProjectCard = ({
   userName,
 }) => {
   return (
-    <div class="max-w-5xl rounded overflow-hidden shadow-lg pb-6">
+    <div class="max-w-5xl rounded overflow-hidden shadow-lg pb-4 mb-4">
       <div class="px-6 py-4">
         <div class="flex space-between">
           <div class="font-bold text-xl mb-2">{name}</div>

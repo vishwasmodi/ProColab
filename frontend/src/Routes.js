@@ -10,10 +10,13 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AddProjectPage from "./pages/AddProjectPage";
+import Nav from "./components/Nav";
 
 const Routes = () => {
   return (
     <Router>
+      <Nav />
+
       <Switch>
         {/* <Route exact path='/route' component={Page} /> for all the pages */}
         <Route exact path="" element={<Home />} />

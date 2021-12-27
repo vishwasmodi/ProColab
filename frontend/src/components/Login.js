@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
@@ -33,11 +34,21 @@ const Login = (props) => {
         setLoading(false);
       });
   };
+  const navigate = useNavigate();
+
   return (
     <div>
-      <div class="flex w-full max-w-xs ">
+      <div class="flex justify-end mr-12 mt-4">
+        <button
+          onClick={() => navigate("/", { replace: true })}
+          class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Back
+        </button>
+      </div>
+      <div class="flex  justify-center min-w-full">
         <form
-          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          class="flex flex-col justify-center  bg-white shadow-md rounded  px-8 py-10 mt-28 w-96 "
           onSubmit={handleLogin}
         >
           <div class="mb-4">
