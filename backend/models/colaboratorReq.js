@@ -13,6 +13,12 @@ const colaboratorReqSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Project",
   },
+  senderName: {
+    type: String,
+  },
+  projectName: {
+    type: String,
+  },
   status: {
     type: Boolean,
   },

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "./Search";
+import ColabReqDropdown from "./ColabReqDropdown";
 import logo from "../static/pcLogo.png";
 import avatar from "../static/avatar.png";
 import { Link } from "react-router-dom";
@@ -11,9 +12,7 @@ const Nav = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout()).then(() => {
-      console.log("Logout");
-    });
+    dispatch(logout());
   };
 
   return (
@@ -28,6 +27,8 @@ const Nav = () => {
         <Search class="w-40 justify-between" />
         {isLoggedIn ? (
           <div class="flex  flex-row mr-10">
+            <ColabReqDropdown />
+
             <img class="max-h-10 ml-12" src={avatar} alt="" />
             <button
               onClick={handleLogout}

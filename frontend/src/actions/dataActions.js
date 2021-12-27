@@ -30,7 +30,39 @@ const getProjects = () => (dispatch) => {
     }
   );
 };
+
+const joinProject = (id) => (dispatch) => {
+  return DataServices.joinproject(id).then(
+    (response) => {
+      dispatch({
+        type: actions.JOIN_REQ_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const getColabReqs = () => (dispatch) => {
+  return DataServices.getcolabreqs().then(
+    (response) => {
+      dispatch({
+        type: actions.GET_COLAB_REQ_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
 export default {
   addProject,
   getProjects,
+  joinProject,
+  getColabReqs,
 };

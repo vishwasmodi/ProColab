@@ -57,7 +57,7 @@ const AddProject = (props) => {
           Back
         </button>
       </div>
-      <div class="flex  min-w-full ml-24 mt-12 ">
+      <div class="flex ml-24 mt-12 ">
         <form
           class="justify-start bg-gray-100 shadow-md rounded pl-10 pr-60 pt-6 pb-8 w-3/5"
           onSubmit={handleAddProject}

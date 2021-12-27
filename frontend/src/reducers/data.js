@@ -10,6 +10,16 @@ const initialStateAdd = {
   loading: false,
 };
 
+const initialStateSendReq = {
+  newRequest: {},
+  loading: false,
+};
+
+const intitalColabReqs = {
+  colabReqs: [],
+  loading: false,
+};
+
 export function addproject(state = initialStateAdd, action) {
   const { type, payload } = action;
   switch (type) {
@@ -38,6 +48,34 @@ export function getprojects(state = initialStateGet, action) {
     case actions.GET_PROJECTS_FAIL:
       return {
         ...state,
+      };
+    default:
+      return state;
+  }
+}
+
+export function joinproject(state = initialStateSendReq, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.JOIN_REQ_SUCCESS:
+      return {
+        ...state,
+        newRequest: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
+
+export function getcolabreqs(state = intitalColabReqs, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.GET_COLAB_REQ_SUCCESS:
+      return {
+        ...state,
+        colabReqs: payload,
+        loading: false,
       };
     default:
       return state;

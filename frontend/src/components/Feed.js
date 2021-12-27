@@ -36,7 +36,7 @@ const Feed = (props) => {
       {projects.map((project) => {
         return (
           <ProjectCard
-            key={project._id}
+            id={project._id}
             name={project.name}
             description={project.description}
             githubRepo={project.githubRepo}

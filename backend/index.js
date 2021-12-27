@@ -8,8 +8,6 @@ const friend = require("./routes/friend");
 const projects = require("./routes/projects");
 const colaboratorsReq = require("./routes/colaboratorsReq");
 const colaborator = require("./routes/colaborators");
-const { Colaborator } = require("./models/colaborator");
-const { ColaboratorReq } = require("./models/colaboratorReq");
 
 const app = express();
 const cors = require("cors");

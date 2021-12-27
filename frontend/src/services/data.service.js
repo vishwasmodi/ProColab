@@ -25,7 +25,31 @@ const getprojects = async () => {
   return axios.get(API_URL + "projects");
 };
 
+const joinproject = async (id) => {
+  return axios.post(
+    API_URL + "colaboratorsReq",
+    {
+      projectId: id,
+    },
+    {
+      headers: {
+        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+      },
+    }
+  );
+};
+
+const getcolabreqs = async () => {
+  return axios.get(API_URL + "colaboratorsReq", {
+    headers: {
+      "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+    },
+  });
+};
+
 export default {
   addproject,
   getprojects,
+  joinproject,
+  getcolabreqs,
 };

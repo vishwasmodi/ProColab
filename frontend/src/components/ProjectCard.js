@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import dataActions from "../actions/dataActions";
 
 const ProjectCard = ({
+  id,
   name,
   description,
   githubRepo,
@@ -12,6 +15,14 @@ const ProjectCard = ({
   user,
   userName,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleJoinProject = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    dispatch(dataActions.joinProject(id)).then(setLoading(false));
+  };
   return (
     <div class="max-w-5xl rounded overflow-hidden shadow-lg pb-4 mb-4">
       <div class="px-6 py-4">
@@ -36,16 +47,17 @@ const ProjectCard = ({
       </div>
       <div class="flex justify-end mr-6">
         <button
+          onClick={handleJoinProject}
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          // disabled={loading}
+          disabled={loading}
         >
           <span>Join Project</span>
-          {/* {loading === true ? (
-          <svg
-            class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
-            viewBox="0 0 24 24"
-          ></svg>
-        ) : null} */}
+          {loading === true ? (
+            <svg
+              class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
+              viewBox="0 0 24 24"
+            ></svg>
+          ) : null}
         </button>
       </div>
     </div>
