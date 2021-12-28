@@ -13,6 +13,9 @@ router.get("/", async (req, res) => {
 router.post("/", auth, async (req, res) => {
   const userName = await User.findById(req.user._id).exec();
   const techStack = req.body.techStack.split(" ");
+  const colaborators = [req.user._id];
+  const colaboratorsUsername = [userName.username];
+
   let project = new Project({
     name: req.body.name,
     description: req.body.description,
@@ -21,22 +24,12 @@ router.post("/", auth, async (req, res) => {
     githubRepo: req.body.githubRepo,
     votes: req.body.votes,
     techStack: techStack,
-    colaborators: req.body.colaborators,
     colaboratorsLimit: req.body.colaboratorsLimit,
+    colaborators: colaborators,
+    colaboratorsUsername: colaboratorsUsername,
   });
   project = await project.save();
   res.send(project);
-});
-
-router.post("/collaborate/:id", auth, async (req, res) => {
-  const user = await User.findById(req.user._id);
-  if (!user) res.send("Wrong user");
-  const project = await Project.findById(req.params.id);
-  if (project.collaborators.find(user._id))
-    res.send("User is already colaborator");
-  if (project.colaboratorsLimit >= project.colaborators.length())
-    res.send("Max number of colaborators for this project reached");
-  res.send("Hello");
 });
 
 router.delete("/:id", auth, async (req, res) => {

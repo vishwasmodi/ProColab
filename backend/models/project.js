@@ -37,6 +37,17 @@ const projectSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  requests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  colaboratorsUsername: [
+    {
+      type: String,
+    },
+  ],
 });
 
 const Project = mongoose.model("Project", projectSchema);
