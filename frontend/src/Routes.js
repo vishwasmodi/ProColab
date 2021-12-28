@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AddProjectPage from "./pages/AddProjectPage";
 import Nav from "./components/Nav";
+import ProfilePage from "./pages/ProfilePage";
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
         <Route exact path="/login" element={<LoginPage />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/addproject" element={<AddProjectPage />} />
+        <Route path="/profile/:username" element={<ProfilePage />} />
       </Switch>
     </Router>
   );

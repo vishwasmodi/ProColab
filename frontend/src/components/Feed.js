@@ -46,6 +46,8 @@ const Feed = (props) => {
             colaboratorsLimit={project.colaboratorsLimit}
             user={project.user}
             userName={project.userName}
+            requests={project.requests}
+            colaboratorUsername={project.colaboratorsUsername}
           />
         );
       })}

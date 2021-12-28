@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
 import auth from "./auth";
 import message from "./message";
-import { getprojects, addproject, joinproject, getcolabreqs } from "./data";
+import {
+  getprojects,
+  addproject,
+  joinproject,
+  getcolabreqs,
+  getprofile,
+} from "./data";
 
 export default combineReducers({
   auth,
@@ -10,4 +16,5 @@ export default combineReducers({
   addproject,
   joinproject,
   getcolabreqs,
+  getprofile,
 });

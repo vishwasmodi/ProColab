@@ -20,6 +20,11 @@ const intitalColabReqs = {
   loading: false,
 };
 
+const initialProfile = {
+  profile: {},
+  loading: false,
+};
+
 export function addproject(state = initialStateAdd, action) {
   const { type, payload } = action;
   switch (type) {
@@ -76,6 +81,25 @@ export function getcolabreqs(state = intitalColabReqs, action) {
         ...state,
         colabReqs: payload,
         loading: false,
+      };
+    case actions.RESPOND_C_REQ_SUCCESS:
+      return {
+        ...state,
+        colabReqs: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
+
+export function getprofile(state = initialProfile, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.GET_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profile: payload,
       };
     default:
       return state;

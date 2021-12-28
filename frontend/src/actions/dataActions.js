@@ -60,9 +60,42 @@ const getColabReqs = () => (dispatch) => {
     }
   );
 };
+
+const respondToReq = (status, reqId) => (dispatch) => {
+  return DataServices.respondtoreq(status, reqId).then(
+    (response) => {
+      dispatch({
+        type: actions.RESPOND_C_REQ_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const getProfile = (username) => (dispatch) => {
+  return DataServices.getprofile(username).then(
+    (response) => {
+      dispatch({
+        type: actions.GET_PROFILE_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
 export default {
   addProject,
   getProjects,
   joinProject,
   getColabReqs,
+  respondToReq,
+  getProfile,
 };

@@ -47,9 +47,30 @@ const getcolabreqs = async () => {
   });
 };
 
+const respondtoreq = async (status, reqId) => {
+  return axios.post(
+    API_URL + "colaboratorsReq/" + reqId.toString(),
+    {
+      status: status,
+    },
+    {
+      headers: {
+        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+      },
+    }
+  );
+};
+
+const getprofile = async (username) => {
+  console.log(API_URL + "users/" + username);
+  return axios.get(API_URL + "users/" + username);
+};
+
 export default {
   addproject,
   getprojects,
   joinproject,
   getcolabreqs,
+  respondtoreq,
+  getprofile,
 };
