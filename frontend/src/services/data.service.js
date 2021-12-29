@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const API_URL = "http://localhost:5000/api/";
 
@@ -62,8 +61,7 @@ const respondtoreq = async (status, reqId) => {
 };
 
 const getprofile = async (username) => {
-  console.log(API_URL + "users/" + username);
-  return axios.get(API_URL + "users/" + username);
+  return axios.get(API_URL + "profile/" + username);
 };
 
 export default {

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from "draft-js";
+// import { Editor } from "react-draft-wysiwyg";
+// import { EditorState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dataActions from "../actions/dataActions";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +13,15 @@ const AddProject = (props) => {
   const [github, SetGithub] = useState("");
   const [tech, setTech] = useState("");
   const [loading, setLoading] = useState(false);
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
+  const [showMessage, setShowMessage] = useState(false);
+  const sucessMsg = "Project added sucessfully!";
+  // const [editorState, setEditorState] = useState(() =>
+  //   EditorState.createEmpty()
+  // );
 
-  useEffect(() => {
-    console.log(editorState);
-  }, [editorState]);
+  // useEffect(() => {
+  //   console.log(editorState);
+  // }, [editorState]);
 
   const onChangeName = (e) => {
     setName(e.target.value);
@@ -42,9 +44,13 @@ const AddProject = (props) => {
   const handleAddProject = (e) => {
     e.preventDefault();
     setLoading(true);
+    setShowMessage(false);
     dispatch(
       dataActions.addProject(name, description, limit, github, tech)
-    ).then(setLoading(false));
+    ).then(() => {
+      setLoading(false);
+      setShowMessage(true);
+    });
   };
   const navigate = useNavigate();
   return (
@@ -155,6 +161,13 @@ const AddProject = (props) => {
                 ></svg>
               ) : null}
             </button>
+            {showMessage && (
+              <div class="mb-3">
+                <div class="text-green-500 text-mb italic" role="alert">
+                  {sucessMsg}
+                </div>
+              </div>
+            )}
           </div>
         </form>
       </div>

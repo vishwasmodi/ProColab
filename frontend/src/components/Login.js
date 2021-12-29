@@ -27,8 +27,9 @@ const Login = (props) => {
 
     dispatch(login(username, password))
       .then(() => {
-        props.history.push("/profile");
-        window.location.reload();
+        // props.history.push(null, null, `/profile/${username}`);
+        // window.location.reload(true);
+        setLoading(false);
       })
       .catch(() => {
         setLoading(false);
@@ -86,7 +87,7 @@ const Login = (props) => {
           </div>
           {message && (
             <div class="mb-3">
-              <div class="text-red-500 text-xs italic" role="alert">
+              <div class="text-purple-500 text-xs italic" role="alert">
                 {message}
               </div>
             </div>

@@ -8,6 +8,9 @@ const Register = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cfUsername, setCfUsername] = useState("");
+  const [ccUsername, setCcUsername] = useState("");
+  const [ghUsername, setGhUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
@@ -33,11 +36,35 @@ const Register = (props) => {
     const password = e.target.value;
     setPassword(password);
   };
+
+  const onChangeCfUsername = (e) => {
+    const username = e.target.value;
+    setCfUsername(username);
+  };
+  const onChangeCcUsername = (e) => {
+    const username = e.target.value;
+    setCcUsername(username);
+  };
+  const onChangeGhUsername = (e) => {
+    const username = e.target.value;
+    setGhUsername(username);
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    dispatch(register(name, username, email, password))
+    dispatch(
+      register(
+        name,
+        username,
+        email,
+        password,
+        cfUsername,
+        ccUsername,
+        ghUsername
+      )
+    )
       .then(() => {
         props.history.push("/profile");
         window.location.reload();
@@ -127,9 +154,55 @@ const Register = (props) => {
             />
           </div>
 
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="cfUsername"
+            >
+              Codeforces Username
+            </label>
+            <input
+              type="text"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="username"
+              value={cfUsername}
+              onChange={onChangeCfUsername}
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="ccUsername"
+            >
+              Codechef Username
+            </label>
+            <input
+              type="text"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="username"
+              value={ccUsername}
+              onChange={onChangeCcUsername}
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="ghUsername"
+            >
+              Github Username
+            </label>
+            <input
+              type="text"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="username"
+              value={ghUsername}
+              onChange={onChangeGhUsername}
+            />
+          </div>
+
           {message && (
             <div class="mb-3">
-              <div class="text-red-500 text-xs italic" role="alert">
+              <div class="text-purple-500 text-xs italic" role="alert">
                 {message}
               </div>
             </div>

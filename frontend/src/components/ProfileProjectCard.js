@@ -14,17 +14,30 @@ const ProjectCard = ({
   colaboratorsLimit,
   user,
   userName,
+  requests,
+  colaboratorUsername,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [requested, setRequested] = useState(null);
   const dispatch = useDispatch();
 
   const handleJoinProject = (e) => {
     e.preventDefault();
     setLoading(true);
     dispatch(dataActions.joinProject(id)).then(setLoading(false));
+    setRequested(true);
   };
+  const curUser = JSON.parse(localStorage.getItem("user"));
+
+  const already = colaborators.find((colaborator) => {
+    return curUser && colaborator.toString() === curUser.userId;
+  });
+  let req = null;
+  if (curUser) {
+    req = requests.find((req) => req === curUser.userId);
+  }
   return (
-    <div class="">
+    <div class=" opacity-90 hover:scale-105 mt-2 grid justify-self-center w-3/5">
       <div class="max-w-lg rounded overflow-hidden shadow-lg pb-4 mb-4">
         <div class="px-6 py-4">
           <div class="flex space-between">
@@ -46,20 +59,34 @@ const ProjectCard = ({
             );
           })}
         </div>
-        <div class="flex justify-end mr-6">
-          <button
-            onClick={handleJoinProject}
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            disabled={loading}
-          >
-            <span>Join Project</span>
-            {loading === true ? (
-              <svg
-                class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
-                viewBox="0 0 24 24"
-              ></svg>
-            ) : null}
-          </button>
+        {!already && !requested && !req ? (
+          <div class="flex justify-end mr-6">
+            <button
+              onClick={handleJoinProject}
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={loading}
+            >
+              <span>Join Project</span>
+              {loading === true ? (
+                <svg
+                  class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
+                  viewBox="0 0 24 24"
+                ></svg>
+              ) : null}
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div class="flex ml-8">
+          <h1>Colaborators: &nbsp;</h1>
+          {colaboratorUsername.map((username) => {
+            return (
+              <div class="text-blue-600">
+                <Link to={`/profile/${username}`}>{username},&nbsp;&nbsp;</Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

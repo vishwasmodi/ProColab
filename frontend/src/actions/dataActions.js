@@ -4,9 +4,14 @@ import DataServices from "../services/data.service";
 const addProject = (name, description, limit, github, tech) => (dispatch) => {
   return DataServices.addproject(name, description, limit, github, tech).then(
     (response) => {
+      const message = "Success!";
       dispatch({
         type: actions.ADD_SUCCESS,
         payload: response.data,
+      });
+      dispatch({
+        type: actions.SET_MESSAGE,
+        payload: message,
       });
       return Promise.resolve();
     },
@@ -38,6 +43,10 @@ const joinProject = (id) => (dispatch) => {
         type: actions.JOIN_REQ_SUCCESS,
         payload: response.data,
       });
+      dispatch({
+        type: actions.SET_MESSAGE,
+        payload: response.data.message,
+      });
       return Promise.resolve();
     },
     (error) => {
@@ -67,6 +76,10 @@ const respondToReq = (status, reqId) => (dispatch) => {
       dispatch({
         type: actions.RESPOND_C_REQ_SUCCESS,
         payload: response.data,
+      });
+      dispatch({
+        type: actions.SET_MESSAGE,
+        payload: response.data.message,
       });
       return Promise.resolve();
     },

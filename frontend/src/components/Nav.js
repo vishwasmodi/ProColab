@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/auth";
 
 const Nav = () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -28,8 +28,10 @@ const Nav = () => {
         {isLoggedIn ? (
           <div class="flex  flex-row mr-10">
             <ColabReqDropdown />
-
-            <img class="max-h-10 ml-12" src={avatar} alt="" />
+            <Link to={`/profile/${user.username}`} class="flex">
+              <img class="max-h-10 ml-20" src={avatar} alt="" />
+              <h2 class="flex text-lg ml-2 mr-4 mt-2 ">{user.name}</h2>
+            </Link>
             <button
               onClick={handleLogout}
               class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 rounded focus:outline-none focus:shadow-outline ml-6"
