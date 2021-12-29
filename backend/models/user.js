@@ -22,6 +22,15 @@ const userSchema = new mongoose.Schema({
     required: true,
     maxlength: 100,
   },
+  cfUsername: {
+    type: String,
+  },
+  ccUsername: {
+    type: String,
+  },
+  ghUsername: {
+    type: String,
+  },
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -36,6 +45,9 @@ function validateUser(user) {
     email: Joi.string().max(255).required().email(),
     username: Joi.string().max(255).required(),
     password: Joi.string().max(255).required(),
+    cfUsername: Joi.string(),
+    ccUsername: Joi.string(),
+    ghUsername: Joi.string(),
   });
   return schema.validate(user);
 }
