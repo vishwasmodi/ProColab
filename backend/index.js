@@ -9,6 +9,7 @@ const projects = require("./routes/projects");
 const colaboratorsReq = require("./routes/colaboratorsReq");
 const colaborator = require("./routes/colaborators");
 const profile = require("./routes/profile");
+const messages = require("./routes/messages");
 
 const app = express();
 const cors = require("cors");
@@ -36,6 +37,7 @@ app.use("/api/friend", friend);
 app.use("/api/projects", projects);
 app.use("/api/colaboratorsReq", colaboratorsReq);
 app.use("/api/profile", profile);
+app.use("/api/messages", messages);
 
 const port = process.env.PORT || 5000;
 

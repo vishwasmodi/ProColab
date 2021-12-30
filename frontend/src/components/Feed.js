@@ -14,7 +14,7 @@ const Feed = (props) => {
   }, []);
 
   return (
-    <div class="m-auto mt-8">
+    <div class="m-60 mt-8">
       <div class="flex space-between justify-between mb-4 pb-2">
         <h1 class="font-bold text-3xl mb-2">&nbsp; &nbsp;Top Projects</h1>
 

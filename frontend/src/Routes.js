@@ -16,7 +16,9 @@ import ProfilePage from "./pages/ProfilePage";
 const Routes = () => {
   return (
     <Router>
-      <Nav />
+      <div class="sticky top-0 z-50">
+        <Nav />
+      </div>
 
       <Switch>
         {/* <Route exact path='/route' component={Page} /> for all the pages */}
