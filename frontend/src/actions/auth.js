@@ -14,10 +14,11 @@ export const register =
       ccUsername,
       ghUsername
     ).then(
-      (response) => {
+      (data) => {
         const message = "Success!";
         dispatch({
           type: actions.REGISTER_SUCCESS,
+          payload: { user: data },
         });
         dispatch({
           type: actions.SET_MESSAGE,
@@ -26,7 +27,7 @@ export const register =
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data;
+        const message = error.data.data;
         dispatch({
           type: actions.REGISTER_FAIL,
         });

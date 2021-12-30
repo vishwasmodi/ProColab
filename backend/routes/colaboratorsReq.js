@@ -13,12 +13,18 @@ router.get("/", auth, async (req, res) => {
   res.send(requests);
 });
 
+// Send request for colaboration
 router.post("/", auth, async (req, res) => {
   const user = await User.findById(req.user._id);
   if (!user) res.status(400).send("Wrong user");
   const project = await Project.findById(req.body.projectId);
   if (project.colaborators.find((c) => c.toString() === user._id))
-    res.send("User is already colaborator");
+    res.status(400).send("User is already colaborator");
+  const requested = await ColaboratorReq.find({
+    senderId: req.user._id,
+    projectId: req.body.projectId,
+  });
+  if (requested) res.status(400).send("Already requested");
   // if (project.colaboratorsLimit >= project.colaborators.length())
   //   res.send("Max number of colaborators for this project reached");
 
@@ -43,7 +49,7 @@ router.post("/", auth, async (req, res) => {
   res.send(request);
 });
 
-// Change status of request
+// Respond to request
 // Here id is request id
 router.post("/:id", auth, async (req, res) => {
   const request = await ColaboratorReq.findById(req.params.id).exec();
@@ -53,9 +59,7 @@ router.post("/:id", auth, async (req, res) => {
   if (req.body.status === "Accept") {
     await Project.findByIdAndUpdate(request.projectId.toString(), {
       $push: {
-        colaborators: request.senderId,
-      },
-      $push: {
+        colaborators: sender._id,
         colaboratorsUsername: sender.username,
       },
       function(err) {

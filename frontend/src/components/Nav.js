@@ -17,7 +17,7 @@ const Nav = () => {
 
   return (
     <div>
-      <div class="h-1"></div>
+      <div class="h-1 bg-zinc-100 "></div>
       <div class="h-12 bg-zinc-100 flex items-center justify-between ">
         <div class=" ml-8">
           <Link to="/">

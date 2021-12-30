@@ -11,15 +11,22 @@ const register = async (
   ghUsername
 ) => {
   console.log(cfUsername);
-  return axios.post(API_URL + "users", {
-    name,
-    username,
-    email,
-    password,
-    cfUsername,
-    ccUsername,
-    ghUsername,
-  });
+  return axios
+    .post(API_URL + "users", {
+      name,
+      username,
+      email,
+      password,
+      cfUsername,
+      ccUsername,
+      ghUsername,
+    })
+    .then((response) => {
+      if (response.data.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+      return response.data;
+    });
 };
 const login = async (username, password) => {
   return axios

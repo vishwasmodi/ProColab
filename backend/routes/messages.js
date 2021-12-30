@@ -4,8 +4,7 @@ const router = express.Router();
 const Message = require("../models/Message");
 
 // New message
-router.post("/", async (req, res) => {
-  console.log(req.body);
+router.post("/", auth, async (req, res) => {
   const newMessage = new Message(req.body);
 
   try {
@@ -17,7 +16,7 @@ router.post("/", async (req, res) => {
 });
 
 // Get previous messages
-router.get("/:projectId", async (req, res) => {
+router.get("/:projectId", auth, async (req, res) => {
   try {
     const messages = await Message.find({
       projectId: req.params.projectId,

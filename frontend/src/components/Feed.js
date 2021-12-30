@@ -8,9 +8,7 @@ const Feed = (props) => {
   const projects = useSelector((state) => state.getprojects.projects);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(dataActions.getProjects()).then(() => {
-      console.log("Hi");
-    });
+    dispatch(dataActions.getProjects());
   }, []);
 
   return (
@@ -19,17 +17,8 @@ const Feed = (props) => {
         <h1 class="font-bold text-3xl mb-2">&nbsp; &nbsp;Top Projects</h1>
 
         <Link to="/addproject" class="flex items-stretch ">
-          <button
-            class="flex  mr-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            // disabled={loading}
-          >
+          <button class="flex  mr-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Add Your Own Project!
-            {/* {loading === true ? (
-          <svg
-            class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
-            viewBox="0 0 24 24"
-          ></svg>
-        ) : null} */}
           </button>
         </Link>
       </div>

@@ -12,7 +12,8 @@ export default function auth(state = initialState, action) {
     case actions.REGISTER_SUCCESS:
       return {
         ...state,
-        isLoggedIn: false,
+        isLoggedIn: true,
+        user: payload.user,
       };
     case actions.REGISTER_FAIL:
       return {
