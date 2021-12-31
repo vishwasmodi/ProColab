@@ -17,7 +17,7 @@ const Messenger = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://procolab.herokuapp.com/:" + process.env.PORT);
+    socket.current = io("https://procolab.herokuapp.com/");
     if (user) {
       socket.current.on("getMessage", (data) => {
         setMessages((prev) => {
