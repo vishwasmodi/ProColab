@@ -6,7 +6,7 @@ import Messenger from "../components/Messenger";
 const Home = () => {
   return (
     <div>
-      <div class="flex space">
+      <div class="flex relative w-full overflow-hidden">
         <Sidebar />
         <Feed />
         <Messenger />

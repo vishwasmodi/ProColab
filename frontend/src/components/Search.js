@@ -11,7 +11,7 @@ const Search = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button
-          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-6"
+          class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-6"
           // disabled={loading}
         >
           <span>Search</span>

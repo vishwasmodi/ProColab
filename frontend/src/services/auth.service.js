@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_URL = "/api/";
+let API_URL = "/api/";
+if (process.env.REACT_APP_ENV === "dev")
+  API_URL = process.env.REACT_APP_API_PREFIX + API_URL;
+
 const register = async (
   name,
   username,
@@ -10,7 +13,6 @@ const register = async (
   ccUsername,
   ghUsername
 ) => {
-  console.log(cfUsername);
   return axios
     .post(API_URL + "users", {
       name,

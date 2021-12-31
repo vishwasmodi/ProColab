@@ -12,12 +12,17 @@ const Messenger = () => {
   const [messages, setMessages] = useState([]);
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { projects } = useSelector((state) => state.getprojects);
-  const [arrivalMessage, setArrivalMessage] = useState(null);
   const socket = useRef();
   const scrollRef = useRef();
 
+  let API_URL1 = "https://procolab.herokuapp.com/";
+  let API_URL = "/api/";
+  if (process.env.REACT_APP_ENV === "dev") {
+    API_URL1 = process.env.REACT_APP_API_PREFIX;
+    API_URL = process.env.REACT_APP_API_PREFIX + API_URL;
+  }
   useEffect(() => {
-    socket.current = io("https://procolab.herokuapp.com/");
+    socket.current = io(API_URL1);
     if (user) {
       socket.current.on("getMessage", (data) => {
         setMessages((prev) => {
@@ -46,7 +51,7 @@ const Messenger = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(`/api/messages/${currentChat}`, {
+        const res = await axios.get(`${API_URL}messages/${currentChat}`, {
           headers: {
             "x-auth-token": user.token,
           },
@@ -76,7 +81,7 @@ const Messenger = () => {
         projectId: currentChat,
         text: newMessage,
       };
-      const res = await axios.post("/api/messages", message, {
+      const res = await axios.post(`${API_URL}messages`, message, {
         headers: {
           "x-auth-token": user.token,
         },
@@ -95,14 +100,14 @@ const Messenger = () => {
   return (
     <div>
       {!chatBox ? (
-        <div class="flex fixed  h-full w-full">
-          <div class="bg-blue-500  w-px "></div>
+        <div class="flex h-full relative ">
+          <div class="bg-blue-500 w-px "></div>
           {isLoggedIn ? (
-            <div class="w-full ">
-              <div class="ml-16 text-xl text-purple-700 mb-4">
+            <div class="fixed">
+              <div class="ml-20 text-2xl text-purple-700 mb-4 ">
                 Chat with your teams!{" "}
               </div>
-              <h1 class="flex ml-12">List of all joined projects</h1>
+              <h1 class="flex ml-28">List of all joined projects</h1>
               <div class="bg-blue-500 mt-4 h-px w-full "> </div>
               <div class="overflow-y-auto flex flex-col ">
                 {projects.map((project) => {
@@ -140,9 +145,7 @@ const Messenger = () => {
                             </div>
                           ))}
                         </div>
-                        <div class="bg-blue-300 mt-4 h-px w-full shadow-lg ">
-                          {" "}
-                        </div>
+                        <div class="bg-blue-300 mt-4 h-px shadow-lg "> </div>
                       </div>
                     );
                   }
@@ -150,7 +153,9 @@ const Messenger = () => {
               </div>
             </div>
           ) : (
-            <h1>Please login to chat with your teams...</h1>
+            <h1 class="fixed ml-4 mt-4">
+              Please login to chat with your teams...
+            </h1>
           )}
         </div>
       ) : (
