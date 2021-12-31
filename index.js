@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Joi = require("joi");
+var http = require("http");
 // Joi.objectId = require("joi-objectid")(Joi);
 const users = require("./routes/users");
 const auth = require("./routes/auth");
@@ -10,10 +11,14 @@ const colaboratorsReq = require("./routes/colaboratorsReq");
 const colaborator = require("./routes/colaborators");
 const profile = require("./routes/profile");
 const messages = require("./routes/messages");
-
 const app = express();
 const cors = require("cors");
-
+const {
+  addUser,
+  removeUser,
+  getUser,
+  chatUsers,
+} = require("./socketFunctions.js");
 require("dotenv").config();
 
 const { APP_USER, APP_USER_PASSWORD } = process.env;
@@ -42,11 +47,40 @@ app.use("/api/messages", messages);
 const port = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("frontend/build"));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
   });
 }
 
-app.listen(port, () => console.log("listening to port 5000"));
+const server = app.listen(port, () => console.log("listening to port 5000"));
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "* ",
+  },
+});
+
+io.on("connection", (socket) => {
+  socket.on("addUser", ({ userId, currentChat }) => {
+    socket.join(currentChat);
+    addUser(userId, currentChat, socket.id);
+    io.emit("getUsers", chatUsers);
+  });
+
+  socket.on("sendMessage", ({ senderId, currentChat, text }) => {
+    const user = getUser(senderId);
+    if (user) {
+      io.to(user.currentChat).emit("getMessage", {
+        senderId,
+        text,
+      });
+    }
+  });
+
+  socket.on("disconnect", () => {
+    removeUser(socket.id);
+    io.emit("getUsers", chatUsers);
+  });
+});
