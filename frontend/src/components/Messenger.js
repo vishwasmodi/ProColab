@@ -17,7 +17,7 @@ const Messenger = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://procolab.herokuapp.com/:" + process.env.PORT);
     if (user) {
       socket.current.on("getMessage", (data) => {
         setMessages((prev) => {
@@ -46,14 +46,11 @@ const Messenger = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/messages/${currentChat}`,
-          {
-            headers: {
-              "x-auth-token": user.token,
-            },
-          }
-        );
+        const res = await axios.get(`/api/messages/${currentChat}`, {
+          headers: {
+            "x-auth-token": user.token,
+          },
+        });
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -79,15 +76,11 @@ const Messenger = () => {
         projectId: currentChat,
         text: newMessage,
       };
-      const res = await axios.post(
-        "http://localhost:5000/api/messages",
-        message,
-        {
-          headers: {
-            "x-auth-token": user.token,
-          },
-        }
-      );
+      const res = await axios.post("/api/messages", message, {
+        headers: {
+          "x-auth-token": user.token,
+        },
+      });
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {
